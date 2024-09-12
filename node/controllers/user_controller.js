@@ -1,6 +1,7 @@
 const multer = require("multer")
 const User = require("../models/user_Schema")
-const nulter = require('multer')
+
+
 const getUser =async(req,res)=>{
     data = await User.find()
     res.send(data)
@@ -8,7 +9,22 @@ const getUser =async(req,res)=>{
 
 
 const postUser = async(req,res)=>{
-    let data =await User.create(req.body)
+    console.log(req.body);
+    console.log(req.file);
+    
+    let {username, password,email} = req.body
+    let profileImg 
+    if(req.file){
+        profileImg = req.file.path
+    }
+
+    let userData ={
+        username,
+        password,
+        email,
+        profileImg
+    }
+    let data =await User.create(userData)
     res.send(data)
 }
 

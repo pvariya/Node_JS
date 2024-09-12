@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <div id="users"></div>
+  </body>
+
+  <script>
+    const mapper = (users) => {
+      // Fix the typo: changed user.map to users.map
+      users.map((ele) => {
+        let username = document.createElement("h4");
+        username.innerHTML = ele.username;
+        let email = document.createElement("p");
+        email.innerHTML = ele.email;
+        let img = document.createElement("img");
+        img.src = `http://localhost:8090/${ele.profileImg}`;
+
+        let div = document.createElement("div");
+        div.append(username, email, img);
+
+        document.getElementById("users").append(div);
+      });
+    };
+
+    const fetchUser = async () => {
+      try {
+        let req = await fetch("http://localhost:8090/user/getUser");
+        let res = await req.json();
+        console.log(res);
+        mapper(res);  // Pass the result to the mapper function
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUser(); // Call the function to fetch and display users
+  </script>
+</html>

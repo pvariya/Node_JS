@@ -10,7 +10,7 @@ const {
 const userRouter = Router();
 
 userRouter.get("/getUser", getUser);
-userRouter.post("/postUser", postUser);
+userRouter.post("/postUser", upload.single("img"), postUser);
 userRouter.patch("/:id", updateUser);
 userRouter.delete("/:id", deleteUser);
 userRouter.post("/upload", upload.single("img"), (req, res) => {

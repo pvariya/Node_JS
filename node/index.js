@@ -4,12 +4,14 @@ const app = express();
 const path = require('path');
 const dbConnetc = require('./config/db')
 const userRouter = require('./routes/user_route');
+const cors = require('cors')
+
 
 const PORT = process.env.PORT || 8090;
-
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploade',express.static(path.join(__dirname, 'uploade')))
 
 
 app.get("/",(req,res)=>{
